@@ -43,8 +43,8 @@ Cách phát hiện phải đo được (event, ngưỡng, tần suất). Ngườ
 
 | Ca | Loại lỗi | Phát hiện bằng gì | Khắc phục thế nào | Ai phụ trách |
 | --: | --- | --- | --- | --- |
-| ... | Do người dùng | ... | ... | ... |
-| ... | Hệ thống | ... | ... | ... |
-| ... | Ngữ cảnh | ... | ... | ... |
-| ... | Giới hạn hệ thống | ... | ... | ... |
-| ... | Ngầm | ... | ... | ... |
+| 9 | Do người dùng | Event `input_validation_failed` (`reason = invalid_waybill_format`, có `trace_id`), đo hằng ngày; cảnh báo khi > 2% tổng yêu cầu/ngày | Tự nhận diện mã sàn TMĐT để tra chéo sang mã vận đơn; nếu không tra được thì trả hướng dẫn kèm ảnh vị trí mã vận đơn | PM trợ lý hoàn phí |
+| 7 | Hệ thống | Đối soát mỗi giờ giữa tin nhắn "đã hoàn" và event `refund_ledger_write` (`ket_qua = ok`) cùng `trace_id`; ngưỡng cảnh báo ≥ 1 ca lệch (mục tiêu 0 ca) | Chỉ gửi thông báo "đã hoàn" khi sổ cái trả `ok`; sau 3 lần lỗi 503 thì báo "đang xử lý" và chuyển nhân viên qua `handoff_to_staff` | Kỹ sư trưởng agent |
+| 18 | Ngữ cảnh | Event `ticket_reopened` (`reason = sai_so_tien`) nhưng đối soát thấy số tiền đúng chính sách, đo hằng tuần; cảnh báo khi > 1% số đơn đóng/tuần | Bắt buộc mẫu phản hồi hiển thị rõ cách tính (VD: `30.000 đ × 50% = 15.000 đ`) kèm điều kiện trễ giờ áp dụng | Trưởng nhóm CSKH |
+| 4 | Giới hạn hệ thống | Event `handoff_to_staff` (`reason = thieu_du_lieu`, có `trace_id`) tách theo `loai`, đo hằng tuần; cảnh báo khi > 15% trong phạm vi pilot | Loại nhóm `quoc_te` khỏi phạm vi pilot; giữ cơ chế chuyển thẳng nhân viên kèm tóm tắt khi thiếu dữ liệu chặng giao | PM trợ lý hoàn phí |
+| 17 | Ngầm | Event `audit_sample_checked` kiểm tra mẫu 100 đơn/tuần so với bảng giá hiện hành; cảnh báo khi > 1% số đơn kiểm tra bị lệch tiền | Tự động xoá bộ nhớ đệm khi có bảng giá mới và ghi trường `pricing_version` vào mọi trace để truy vết | Kế toán trưởng |
