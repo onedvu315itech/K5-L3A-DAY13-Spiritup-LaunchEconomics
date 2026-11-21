@@ -2,19 +2,18 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A hoặc L3B
-- Repo nhóm: `K5-L3A-DAY13-TenNhom-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt:
+- Tên nhóm: Spiritup
+- Lớp: L3A
+- Repo nhóm: `K5-L3A-DAY13-Spiritup-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
+- URL repo, nhánh nộp, commit chốt: https://github.com/onedvu315itech/K5-L3A-DAY13-Spiritup-LaunchEconomics (main)
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
-|   3 |        |      |       |        |         |
-|   4 |        |      |       |        |         |
+|   1 | Vũ Lê Đức | 2A202603683 | onedvu315itech@gmail.com | onedvu315itech | Người kiểm số, Người gắn nhãn 1 |
+|   2 | Lê Hữu Toàn | 2A202603660 | | Tsou911 | Người viết code |
+|   3 | Trần Việt Thịnh | 2A202603661 | | ThinhTran-codee | Người gắn nhãn 2, kiêm giữ hồ sơ |
 
 Bốn vai của lab:
 
