@@ -3,49 +3,54 @@
 # Kiểm tra đọc được: python -c "import yaml; yaml.safe_load(open('../report/team/pilot_plan.yaml'))"
 #
 # D1 · Cỡ mẫu (baseline 0,70; mục tiêu +5 điểm; alpha 0,05; power 0,8; ICC 0,02)
-#   a) Chia theo yêu cầu:
-#   b) Theo nhân viên, m = 75:
-#   c) 20 nhân viên mỗi nhóm:
-#   d) 6 depot mỗi nhóm:
-#   e) Mức chênh 6 điểm (859 mỗi nhóm), 20 nhân viên mỗi nhóm:
+#   a) Chia theo yêu cầu: 1.251 yêu cầu mỗi nhóm (DE = 1,00).
+#   b) Theo nhân viên, m = 75: DE = 2,48; cần 3.103 yêu cầu và 42 nhân viên mỗi nhóm (LogiX-VN chỉ có 40 nhân viên -> không đủ).
+#   c) 20 nhân viên mỗi nhóm: 604,84 yêu cầu hiệu dụng ở m = 75; giới hạn tiệm cận 1.000 yêu cầu hiệu dụng (không đạt 1.251).
+#   d) 6 depot mỗi nhóm: giới hạn tiệm cận 300 yêu cầu hiệu dụng (không đạt 1.251 và < 20 cụm/nhóm).
+#   e) Mức chênh 6 điểm (859 mỗi nhóm), 20 nhân viên mỗi nhóm: cần tối thiểu 299 yêu cầu/nhân viên, DE = 6,96, hiệu dụng 859,20, thu thập 5.980 yêu cầu/nhóm (power phát hiện +5 điểm = 64,17%).
 #
 # D2 · Năm câu kiểm tra "tách được tác động" với cách chia đã chọn (mỗi câu một dòng):
-#   1. Đối chứng chạy cùng thời gian:
-#   2. Chia ngẫu nhiên hay do người chọn:
-#   3. Ảnh hưởng gián tiếp và cách giảm:
-#   4. Chỉ số chính, ngưỡng, ngày quyết định đã viết trước:
-#   5. Ít nhất 20 cụm mỗi nhóm:
+#   1. Đối chứng chạy cùng thời gian: Có, nhóm đối chứng và nhóm dùng trợ lý chạy song song 50/50 trong cùng các tuần pilot để loại nhiễu theo thời gian.
+#   2. Chia ngẫu nhiên hay do người chọn: Chia ngẫu nhiên theo nhân viên (stratified theo depot) để tránh thiên lệch chọn người giỏi/kém.
+#   3. Ảnh hưởng gián tiếp và cách giảm: Có thể xảy ra trao đổi kinh nghiệm giữa nhân viên cùng depot; giảm bằng cách tách ca/nhóm thao tác và không chia sẻ tài khoản dùng trợ lý.
+#   4. Chỉ số chính, ngưỡng, ngày quyết định đã viết trước: Có, chốt trước dong_trong_24h_khong_mo_lai_7_ngay (MDE +6 điểm), 3 luật dừng và decision_date trong file này.
+#   5. Ít nhất 20 cụm mỗi nhóm: Có, 20 nhân viên mỗi nhóm (20 cụm/nhóm).
 #
 # Đánh đổi đã chấp nhận (nếu cách chia chưa đạt cả hai điều kiện):
+#   Chia theo nhân viên (20 cụm/nhóm) tránh spillover nhưng giới hạn tiệm cận 1.000 < 1.251 cho +5 điểm; nhóm chấp nhận nâng MDE lên +6 điểm (859 hiệu dụng, 299 yc/nhân viên, thu thập 5.980 yc/nhóm; power cho +5 điểm là 64,17%).
 #
 # Tỉ lệ mo_lai_trong_7_ngay hiện tại và ngưỡng an toàn đã chọn:
+#   Toàn mẫu: 51/1200 (4,25%); phạm vi noi_dia + hang_nang: 39/982 (3,97%). Chọn ngưỡng dừng an toàn > 6,0% trong 3 ngày liên tiếp.
 
 pilot:
-  owner: "?"                      # một người có tên vai trò, không ghi "cả đội"
-  scope: "?"                      # loại yêu cầu nào, depot nào; dựa vào kết quả A3
+  owner: "Giám đốc vận hành LogiX-VN"
+  scope: "noi_dia và hang_nang tại 12 depot (loại quoc_te và doi_tac theo kết quả A3)"
   assignment:
-    unit: "?"                     # request | staff | depot
+    unit: "staff"
     control_share: 0.5
     randomized: true
   rollout: [0.10, 0.25, 0.50]     # mỗi bước một tuần
   primary_metric:
     name: dong_trong_24h_khong_mo_lai_7_ngay
     baseline: 0.70
-    mde: 0.05
+    mde: 0.06                     # chấp nhận MDE +6 điểm khi chia 20 nhân viên/nhóm (power +5 điểm là 64,17%)
     alpha: 0.05
     power: 0.80
-    n_per_arm: "?"
-    design_effect: "?"            # 1 nếu chia theo yêu cầu
-    clusters_per_arm: "?"         # để trống nếu chia theo yêu cầu
+    n_per_arm: 5980               # 859 yêu cầu hiệu dụng/nhóm (20 nhân viên × 299 yêu cầu)
+    design_effect: 6.96
+    clusters_per_arm: 20
   identifiability:
-    concurrent_control: "?"
-    spillover_risk: "?"
-    predeclared: "?"
+    concurrent_control: true
+    spillover_risk: "Trung bình (nhân viên cùng depot); giảm bằng cách khóa quyền trợ lý theo staff_id và không chia sẻ màn hình gợi ý"
+    predeclared: true
   stop_rules:
-    - "NẾU ? TRONG ? THÌ ? KHÔNG THÌ ?"
-    - "NẾU ? TRONG ? THÌ ? KHÔNG THÌ ?"
-    - "NẾU ? TRONG ? THÌ ? KHÔNG THÌ ?"
+    - "NẾU tỉ lệ mo_lai_trong_7_ngay trong phạm vi noi_dia + hang_nang vượt 6,0% (nền 3,97%) TRONG 3 ngày liên tiếp THÌ Kỹ sư trưởng agent tắt định tuyến trợ lý và chuyển 100% ca về nhân viên xử lý trong 15 phút KHÔNG THÌ tiếp tục giữ nguyên lộ trình mở rộng sang tuần kế tiếp"
+    - "NẾU chi phí mỗi việc thành công (CPS, simulated) vượt 9.000 đ hoặc tỉ lệ xem lại vượt 35% TRONG 5 ngày làm việc liên tiếp THÌ PM trợ lý hoàn phí dừng tăng tỉ lệ rollout và rà soát lại quy trình xem lại/làm lại với Trưởng nhóm CSKH KHÔNG THÌ tiếp tục tăng tỉ lệ rollout theo kế hoạch"
+    - "NẾU tỉ lệ giữ gợi ý của nhân viên xuống dưới 50% (nền đã xem giữ 72,88%) TRONG 7 ngày liên tiếp THÌ Trưởng nhóm CSKH tạm dừng mở rộng thêm nhân viên và hiệu chỉnh giao diện gợi ý KHÔNG THÌ tiếp tục mở rộng theo lộ trình"
   interim_looks: "chỉ kiểm tra chỉ số an toàn"
-  rollback: "?"                   # ai bấm, mất bao lâu, khách được phục vụ bằng gì
-  decision_date: "?"
-  simulated_inputs: ["?"]         # liệt kê mọi con số giả lập đã dùng
+  rollback: "Kỹ sư trưởng agent bấm nút tắt công tắc định tuyến (feature flag) trong tối đa 15 phút; toàn bộ yêu cầu được chuyển thẳng về hàng đợi nhân viên CSKH tự xử lý theo quy trình chuẩn"
+  decision_date: "Sau 3 tuần pilot (kết thúc giai đoạn 50%) hoặc ngay khi đạt 5.980 yêu cầu/nhóm"
+  simulated_inputs:
+    - "phut_xem_lai_simulated (1.780.000 đ toàn mẫu, 40,70% tổng chi phí, simulated)"
+    - "phut_lam_lai_simulated (2.264.000 đ toàn mẫu, 51,77% tổng chi phí, simulated)"
+    - "CPS toàn mẫu 4.472 đ và phạm vi noi_dia + hang_nang 3.414 đ chưa cố định / 4.599 đ có cố định (simulated)"
