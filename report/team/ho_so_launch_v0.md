@@ -6,9 +6,9 @@ Nhóm: Spiritup · Lớp: L3A
 
 | Mục | Con số chính | Trạng thái | Người phụ trách |
 | --- | --- | --- | --- |
-| 1 · Chi phí mỗi việc thành công | `[Chờ CP1 · A2/A4: CPS toàn mẫu & phạm vi noi_dia + hang_nang, đã/chưa cộng cố định 40 tr/tháng, ghi nhãn simulated]` | Giả lập | PM trợ lý hoàn phí |
-| 2 · Ba yếu tố nhạy nhất | `[Chờ CP2 · B1/B2/B4: Top 3 yếu tố + % tác động; ghi rõ kịch bản xem lại 100%, nhãn simulated]` | Giả lập | PM trợ lý hoàn phí |
-| 3 · So với nhân viên tự làm | `[Chờ CP1/CP2 · A2/A3/B3: Chi phí cả hệ thống so với 12.000 đ; phạm vi noi_dia + hang_nang, loại quoc_te & doi_tac, nhãn simulated]` | Giả lập | Giám đốc vận hành LogiX-VN |
+| 1 · Chi phí mỗi việc thành công | Toàn mẫu: **4.472 đ** (`simulated`, gấp 16,28× hoá đơn 275 đ/yc; công NV chiếm 92,5%). Phạm vi `noi_dia` + `hang_nang` đã cộng cố định 40 tr/tháng: **4.599 đ** (45.000 yc/tháng) hoặc **5.784 đ** (giảm nửa khối lượng) [`simulated`] | Giả lập | PM trợ lý hoàn phí |
+| 2 · Ba yếu tố nhạy nhất | **1. Làm lại (+51,77%) · 2. Xem lại (+40,70%) · 3. Lương NV (+23,12%)** [`simulated`] (token ×2 chỉ +5,62%). Bất lợi: **xem lại 100%** đẩy CPS lên **11.743 đ (0,98×)**–**12.516 đ (1,04×)** [`simulated`] | Giả lập | PM trợ lý hoàn phí |
+| 3 · So với nhân viên tự làm | Chuẩn NV tự làm: **12.000 đ/yc**. Chi phí cả hệ thống rẻ nhất ở giới hạn **2 lần chạy: 6.901.220 đ** (5.751 đ/yc = 0,48×; 3 lần: 7.037.585 đ = 0,49×) [`simulated`]. Chọn `noi_dia` (2.696 đ = 0,22×) + `hang_nang` (8.221 đ = 0,69×); loại `quoc_te` (22.515 đ = 1,88×) & `doi_tac` (10.215 đ = 0,85×) [`simulated`] | Giả lập | Giám đốc vận hành LogiX-VN |
 | 4 · Chỉ số chính, chỉ số dùng, chỉ số an toàn | `[Chờ CP5 · E1: 3 chỉ số trong đợt chạy thử (không viết "đã nâng") + số event có trace_id]` | Chưa | Kỹ sư trưởng agent |
 | 5 · Bảng lỗi và cách khắc phục | `[Chờ CP3 · C: Đồng thuận .../20 (...%) giữa 2 người gắn nhãn; 5 ca đại diện đủ 5 loại PAIR + phát hiện đo được]` | Chưa | Trưởng nhóm CSKH |
 | 6 · Pilot plan | `[Chờ CP4 · D: Đơn vị chia, cỡ mẫu, MDE, đánh đổi power, ≥ 3 luật dừng đủ 4 vế NẾU–TRONG–THÌ–KHÔNG THÌ]` | Chưa | Giám đốc vận hành LogiX-VN |
